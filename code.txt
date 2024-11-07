@@ -10,8 +10,9 @@ console.log(a+b+c)
 var a="Meenakshi";
 var b="Mahhen";
 var c="Reshama";
+var d="Poojitha";
 
-console.log(a+"    "+b+"   "+c);
+console.log(a+"    "+b+"   "+c+d);
 // undefined
 let x;
 console.log(x);
