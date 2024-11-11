@@ -24,7 +24,8 @@ if (Telugu >= 40 && Hindi >= 40 && English >= 40 && Maths >= 40 && Science >= 40
     }
 } else {
     console.log("Fail");
-    console.log("To be Improved");
+    console.log("To be Improve");
+    console.log("Hello");
 }
 
 //OR
