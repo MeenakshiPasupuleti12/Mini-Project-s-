@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Creating Element</h1>
+    <button onclick="createElement()"> Create Element</button>
+    <button onclick="createElement">Change color</button>
+    <script>
+        let createElement =()=>
+    {
+        let h1 =document.querySelector("h1")
+        h1.style.color="red";
+        let h2 =document.createElement('h2');
+        h2.innerText="I'M new element";
+        document.querySelector('body').appendChild(h2);
+    }
+    </script>
+</body>
+</html>
