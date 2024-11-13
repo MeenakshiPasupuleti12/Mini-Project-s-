@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks List</title>
+    <link rel="stylesheet" href="marks.css">
+</head>
+<body>
+
+    <h2>Student Marks List</h2>
+
+    <form id="marksForm" onsubmit="calculateResults(event)">
+        <label>Telugu: <input type="number" id="telugu" min="0" max="100"></label>
+        <label>Hindi: <input type="number" id="hindi" min="0" max="100"></label>
+        <label>English: <input type="number" id="english" min="0" max="100"></label>
+        <label>Maths: <input type="number" id="maths" min="0" max="100"></label>
+        <label>Science: <input type="number" id="science" min="0" max="100"></label>
+        <label>Social: <input type="number" id="social" min="0" max="100"></label>
+        
+        <button type="submit">Calculate Results</button>
+    </form>
+
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+            </tr>
+        </thead>
+        <tbody id="marksBody">
+            <tr><td>Telugu</td><td id="telugumarks">-</td></tr>
+            <tr><td>Hindi</td><td id="hindimarks">-</td></tr>
+            <tr><td>English</td><td id="englishmarks">-</td></tr>
+            <tr><td>Maths</td><td id="mathsmarks">-</td></tr>
+            <tr><td>Science</td><td id="sciencemarks">-</td></tr>
+            <tr><td>Social</td><td id="socialmarks">-</td></tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total Marks</th>
+                <td id="totalMarks">-</td>
+            </tr>
+            <tr>
+                <th>Grade</th>
+                <td id="grade">-</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td id="status">-</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script src="marks.js"></script>
+
+</body>
+</html>

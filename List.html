@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>To-Do List</h1>
+    <input type="text" id="task-input" />
+    <button onclick="addTask()">Add</button>
+    <button onclick="removeTask()">Remove</button>
+    <ol id="task-list"></ol> 
+  </div>
+
+  <script>
+    const taskInput = document.getElementById("task-input");
+    const taskList = document.getElementById("task-list");
+
+    function addTask() {
+      const taskText = taskInput.value;
+      if (taskText === "") return; 
+
+      const taskItem = document.createElement("li");
+      taskItem.innerText = taskText;
+      taskList.append(taskItem);
+
+      taskInput.value = ""; 
+    }
+
+    function removeTask() {
+      const taskText = taskInput.value;
+      if (taskText === "") return; 
+
+      const tasks = taskList.getElementsByTagName("li");
+      
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].innerText === taskText) {
+          taskList.removeChild(tasks[i]);
+          break; 
+        }
+      }
+
+      taskInput.value = "";
+    }
+  </script>
+</body>
+</html>
+
+<!-- wdsj
+  var information={
+   namee ="
+   meenakshi"
+  } 
+-->
