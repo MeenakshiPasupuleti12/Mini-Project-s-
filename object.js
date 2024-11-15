@@ -7,6 +7,7 @@ var information = {
 
   let newName = information.name = "kshitij";
   console.log(newName)
+  information.name="kanna";
 
 
 
@@ -22,5 +23,6 @@ var information = {
   console.log(newNamee);
 
   delete information.name;
+  info.namee="meena";
 
   console.log(information)

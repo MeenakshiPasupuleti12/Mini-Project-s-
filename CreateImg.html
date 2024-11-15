@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        
+
+        .btn{
+            background-color: red;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- <button id="createImg" onclick="createimage()">Create Element</button> -->
+    <button id="create" class="btn" onclick="createImage()">createimage</button>
+    <button class="hover-area" onmouseover="showImage()" onmouseout="hideImage()">
+        Hover over me!
+      </button>
+      <img id="hoverImage" src="https://static.wikia.nocookie.net/naruto/images/d/dc/Naruto%27s_Sage_Mode.png/revision/latest/scale-to-width-down/985?cb=20150124180545"" alt="Hover Image">
+    
+      <script>
+        const hoverImage = document.getElementById('hoverImage');
+    
+        function showImage() {
+          hoverImage.style.display = 'block';
+        }
+    
+        function hideImage() {
+          hoverImage.style.display = 'none';
+        }
+      </script>
+
+<script>
+function createImage()
+{
+    let a = document.getElementById("create");
+    let image = document.createElement("img");
+    image.setAttribute("src","https://static.wikia.nocookie.net/naruto/images/d/dc/Naruto%27s_Sage_Mode.png/revision/latest/scale-to-width-down/985?cb=20150124180545");
+    image.setAttribute("alt","sorry cant be load");
+    a.after(image)
+}
+</script>
+
+    
+</body>
+</html>

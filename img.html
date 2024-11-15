@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="bc" onclick="createImage()">createimage</button>
+    <script>
+    function createImage() {
+    let abc = document.getElementById("bc");
+    let image = document.createElement("img");
+    image.setAttribute("src","https://i.guim.co.uk/img/media/dd703cd39013271a45bc199fae6aa1ddad72faaf/0_0_2000_1200/master/2000.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=2192262d7832a184dbb583c238563695 ");
+    image.setAttribute("alt", "sorry cant be load")
+    abc.after(image)
+}    
+    </script>
+</body>
+
+</html>
