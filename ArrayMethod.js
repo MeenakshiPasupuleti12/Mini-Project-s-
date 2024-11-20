@@ -41,7 +41,7 @@ const data =[
     },
 ]
 
-const be = data.forEach(function(id)
+const be = data.forEach(function(name,id)
 {
-    console.log(id)
+    console.log(name)
 })
