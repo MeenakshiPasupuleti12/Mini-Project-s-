@@ -1,0 +1,17 @@
+h2::first-letter
+{
+    text-transform: lowercase;
+    color: brown;
+}
+h2::after{
+    content: "Before these content is used";
+    color: blueviolet;
+
+}
+p::selection{
+    background-color: black;
+    color: red;
+}
+button::after{
+    color: bisque;
+}
