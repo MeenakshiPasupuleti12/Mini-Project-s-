@@ -45,5 +45,5 @@ let Student=[
     }
 ]
 console.log(Student[0]);
-}
-fun();
+// }
+// fun();
