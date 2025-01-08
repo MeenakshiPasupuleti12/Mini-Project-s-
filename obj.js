@@ -1,5 +1,5 @@
-function fun()
-{
+// function fun()
+// {
 let Student=[
     {
         name:"ANR",
