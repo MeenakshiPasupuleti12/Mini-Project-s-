@@ -1,0 +1,106 @@
+//it checks the spliters filp stages are in correct or not 
+[CommandMethod("Spilters")]
+public static void Spilters()
+{
+    Document doc = Application.DocumentManager.MdiActiveDocument;
+    Database db = doc.Database;
+    Editor ed = doc.Editor;
+    int mismatchCount = 0;
+
+    using (Transaction tr = db.TransactionManager.StartTransaction())
+    {
+        BlockTable bt = tr.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
+        BlockTableRecord btr = tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+
+        // Prepare error layer
+        LayerTable lt = tr.GetObject(db.LayerTableId, OpenMode.ForRead) as LayerTable;
+        ObjectId errorLayerId;
+
+        if (!lt.Has("SPLITTER_ERRORS"))
+        {
+            lt.UpgradeOpen();
+            LayerTableRecord errorLayer = new LayerTableRecord
+            {
+                Name = "SPLITTER_ERRORS",
+                Color = Color.FromColorIndex(ColorMethod.ByAci, 1) // Red
+            };
+            lt.Add(errorLayer);
+            tr.AddNewlyCreatedDBObject(errorLayer, true);
+            errorLayerId = errorLayer.ObjectId;
+        }
+        else
+        {
+            errorLayerId = lt["SPLITTER_ERRORS"];
+        }
+
+        // Loop through all block references in model space
+        foreach (ObjectId objId in btr)
+        {
+            if (!objId.ObjectClass.IsDerivedFrom(RXClass.GetClass(typeof(BlockReference))))
+                continue;
+
+            BlockReference blkRef = tr.GetObject(objId, OpenMode.ForRead) as BlockReference;
+            if (blkRef == null)
+                continue;
+
+            // Match by block name or layer
+            if (!blkRef.Name.ToUpper().Contains("SPLITTER") &&
+                !blkRef.Layer.ToUpper().Contains("SPLITTER"))
+                continue;
+
+            // Read Flip States
+            string flip1 = GetAttribute(blkRef, "Flip state1", tr);
+            string flip2 = GetAttribute(blkRef, "Flip state2", tr);
+
+            // Try dynamic block properties if attributes not found
+            if (flip1 == null || flip2 == null)
+            {
+                DynamicBlockReferencePropertyCollection props = blkRef.DynamicBlockReferencePropertyCollection;
+                foreach (DynamicBlockReferenceProperty prop in props)
+                {
+                    if (prop.PropertyName.Equals("Flip state1", StringComparison.OrdinalIgnoreCase))
+                        flip1 = prop.Value.ToString();
+                    if (prop.PropertyName.Equals("Flip state2", StringComparison.OrdinalIgnoreCase))
+                        flip2 = prop.Value.ToString();
+                }
+            }
+
+            // Compare and mark mismatch
+            if (flip1 != null && flip2 != null)
+            {
+                if (!flip1.Equals(flip2, StringComparison.OrdinalIgnoreCase))
+                {
+                    Circle circle = new Circle(blkRef.Position, Vector3d.ZAxis, 10);
+                    circle.LayerId = errorLayerId;
+                    circle.Color = Color.FromColorIndex(ColorMethod.ByAci, 1); // Red
+
+                    btr.AppendEntity(circle);
+                    tr.AddNewlyCreatedDBObject(circle, true);
+
+                    mismatchCount++;
+                }
+            }
+        }
+
+        tr.Commit();
+    }
+
+    // Report result
+    if (mismatchCount > 0)
+        ed.WriteMessage($"\nFound {mismatchCount} mismatched splitter(s).");
+    else
+        ed.WriteMessage("\nAll splitter flip stages match.");
+}
+
+private static string GetAttribute(BlockReference blkRef, string tag, Transaction tr)
+{
+    foreach (ObjectId attId in blkRef.AttributeCollection)
+    {
+        AttributeReference attRef = tr.GetObject(attId, OpenMode.ForRead) as AttributeReference;
+        if (attRef != null && attRef.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase))
+        {
+            return attRef.TextString.Trim();
+        }
+    }
+    return null;
+}
