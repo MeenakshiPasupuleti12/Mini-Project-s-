@@ -103,3 +103,4 @@ public static void CheckCableCallouts()
     else
         ed.WriteMessage("\nNo invalid cable callouts found.");
 }
+}
