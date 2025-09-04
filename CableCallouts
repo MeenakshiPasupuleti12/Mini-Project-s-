@@ -1,0 +1,88 @@
+//It check the any CableCallouts Has more then one space 
+[CommandMethod("CheckCableCallouts")]
+public static void CheckCableCallouts()
+{
+    Document doc = Application.DocumentManager.MdiActiveDocument;
+    Database db = doc.Database;
+    Editor ed = doc.Editor;
+
+    int invalidCount = 0;
+
+    using (Transaction tr = db.TransactionManager.StartTransaction())
+    {
+        BlockTable bt = tr.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
+        BlockTableRecord ms = tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+
+        // Create or get "CABLE_ERRORS" layer
+         LayerTable lt = tr.GetObject(db.LayerTableId, OpenMode.ForRead) as LayerTable;
+        ObjectId errorLayerId;
+
+        if (!lt.Has("CABLE_ERRORS"))
+        {
+            lt.UpgradeOpen();
+            LayerTableRecord errorLayer = new LayerTableRecord
+            {
+                Name = "CABLE_ERRORS",
+                Color = Color.FromColorIndex(ColorMethod.ByAci, 1) // Red
+            };
+            lt.Add(errorLayer);
+            tr.AddNewlyCreatedDBObject(errorLayer, true);
+            errorLayerId = errorLayer.ObjectId;
+        }
+        else
+        {
+            errorLayerId = lt["CABLE_ERRORS"];
+        }
+
+        foreach (ObjectId objId in ms)
+        {
+            if (!objId.ObjectClass.IsDerivedFrom(RXClass.GetClass(typeof(BlockReference))))
+                continue;
+
+            BlockReference blkRef = tr.GetObject(objId, OpenMode.ForRead) as BlockReference;
+
+            if (blkRef == null || blkRef.Layer != "CABLE CALLOUT")
+                continue;
+
+            foreach (ObjectId attId in blkRef.AttributeCollection)
+            {
+                AttributeReference attRef = tr.GetObject(attId, OpenMode.ForRead) as AttributeReference;
+
+                if (attRef != null)
+                {
+                    string fullText = attRef.TextString;
+
+                    // Get only the first line (heading)
+                    string heading = fullText.Split(new[] { '\r', '\n' }).FirstOrDefault();
+
+                    if (!string.IsNullOrWhiteSpace(heading))
+                    {
+                        // Check for double or more consecutive spaces or any tab characters
+                        if (heading.Contains("  ") || heading.Contains("\t"))
+                        {
+                            // Draw red circle on error layer around attribute position
+                            Circle circle = new Circle(attRef.Position, Vector3d.ZAxis, 10); // Circle radius 50 or adjust as needed
+                            circle.LayerId = errorLayerId;
+                            circle.Color = Color.FromColorIndex(ColorMethod.ByAci, 1);
+
+                            ms.AppendEntity(circle);
+                            tr.AddNewlyCreatedDBObject(circle, true);
+
+                            invalidCount++;
+                            break; // Only mark once per block
+                        }
+
+                    }
+                }
+            }
+        }
+
+        tr.Commit();
+    }
+
+    // Show summary
+    if (invalidCount > 0)
+        ed.WriteMessage($"\nTotal invalid cable callouts found: {invalidCount}");
+    else
+        ed.WriteMessage("\nNo invalid cable callouts found.");
+}
