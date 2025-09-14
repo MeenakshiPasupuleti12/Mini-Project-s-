@@ -1,0 +1,57 @@
+using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
+
+[assembly: CommandClass(typeof(RectDrawApp.RectDraw))]
+
+namespace RectDrawApp
+{
+    public class RectDraw
+    {
+        [CommandMethod("DrawRect")]
+        public void DrawRect()
+        {
+            Document doc = Application.DocumentManager.MdiActiveDocument;
+            Editor ed = doc.Editor;
+            PromptPointResult p1Res = ed.GetPoint("\nSelect first corner: ");
+            if (p1Res.Status != PromptStatus.OK) return;
+            PromptPointResult p2Res = ed.GetPoint("\nSelect opposite corner: ");
+            if (p2Res.Status != PromptStatus.OK) return;
+
+            Point3d p1 = p1Res.Value;
+            Point3d p2 = p2Res.Value;
+
+            Point2d pt1 = new Point2d(p1.X, p1.Y);
+            Point2d pt2 = new Point2d(p2.X, p1.Y);
+            Point2d pt3 = new Point2d(p2.X, p2.Y);
+            Point2d pt4 = new Point2d(p1.X, p2.Y);
+
+            using (Transaction tr = doc.Database.TransactionManager.StartTransaction())
+            {
+                BlockTable bt = tr.GetObject(doc.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
+                BlockTableRecord btr = tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+
+                Polyline rect = new Polyline(4);
+                rect.AddVertexAt(0, pt1, 0, 0, 0);
+                rect.AddVertexAt(1, pt2, 0, 0, 0);
+                rect.AddVertexAt(2, pt3, 0, 0, 0);
+                rect.AddVertexAt(3, pt4, 0, 0, 0);
+                rect.Closed = true;
+                btr.AppendEntity(rect);
+                tr.AddNewlyCreatedDBObject(rect, true);
+
+                Point3d mid = new Point3d((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2, 0);
+                DBText txt = new DBText();
+                txt.Position = mid;
+                txt.Height = p1.DistanceTo(p2) / 20;
+                txt.TextString = "Rectangle created with DrawRect";
+                btr.AppendEntity(txt);
+                tr.AddNewlyCreatedDBObject(txt, true);
+
+                tr.Commit();
+            }
+        }
+    }
+}
