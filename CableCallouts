@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/using Teigha.Colors;
+//using Teigha.Colors;
 using Teigha.DatabaseServices;
 using Teigha.Geometry;
 using Teigha.Runtime;
