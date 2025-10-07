@@ -9,7 +9,7 @@
 
 // {
 //     console.log(element*2)
-// })
+//  })
 
 
 
