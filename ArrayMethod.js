@@ -1,7 +1,7 @@
 let a = Number("123")
  let c = parseInt("100.01")
  let c =parseFloat("100.20")
-/console.log(c)
+console.log(c)
 // let b = String(123)
 // console.log(typeof(b));
 
