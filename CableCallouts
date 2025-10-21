@@ -16,7 +16,7 @@ namespace TAsk1
     {
         private static int mismatchCount;
 //It check the any CableCallouts Has more then one space 
-//[CommandMethod("CheckCableCallouts")]
+/[CommandMethod("CheckCableCallouts")]
 public static void CheckCableCallouts()
 {
     Document doc = Application.DocumentManager.MdiActiveDocument;
