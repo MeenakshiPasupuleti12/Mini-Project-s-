@@ -3,7 +3,7 @@ let a = Number("123")
  let c =parseFloat("100.20")
 console.log(c)
 let b = String(123)
-// console.log(typeof(b));
+/ console.log(typeof(b));
 
 // var fe = arr.forEach(function(element,index)
 
