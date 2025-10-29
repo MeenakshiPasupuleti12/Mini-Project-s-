@@ -5,7 +5,7 @@ console.log(c)
 let b = String(123)
 console.log(typeof(b));
 
-// var fe = arr.forEach(function(element,index)
+/ var fe = arr.forEach(function(element,index)
 
 // {
 //     console.log(element*2)
