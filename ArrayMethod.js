@@ -8,7 +8,7 @@ console.log(typeof(b));
 var fe = arr.forEach(function(element,index)
 
 {
-     console.log(element*2)
+ console.log(element*2)
 //  })
 
 
