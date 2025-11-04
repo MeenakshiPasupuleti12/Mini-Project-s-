@@ -87,7 +87,7 @@ public static void Spilters()
 
     // Report result
     if (mismatchCount > 0)
-        ed.WriteMessage($"\nFound {mismatchCount} mismatched splitter(s).");
+       / ed.WriteMessage($"\nFound {mismatchCount} mismatched splitter(s).");
     else
         ed.WriteMessage("\nAll splitter flip stages match.");
 }
