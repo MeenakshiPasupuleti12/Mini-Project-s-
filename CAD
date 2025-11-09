@@ -72,7 +72,7 @@ public static void Spilters()
                 {
                     Circle circle = new Circle(blkRef.Position, Vector3d.ZAxis, 10);
                     circle.LayerId = errorLayerId;
-                   / circle.Color = Color.FromColorIndex(ColorMethod.ByAci, 1); // Red
+                    circle.Color = Color.FromColorIndex(ColorMethod.ByAci, 1); // Red
 
                     btr.AppendEntity(circle);
                     tr.AddNewlyCreatedDBObject(circle, true);
