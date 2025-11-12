@@ -37,7 +37,7 @@ public static void Spilters()
         foreach (ObjectId objId in btr)
         {
             if (!objId.ObjectClass.IsDerivedFrom(RXClass.GetClass(typeof(BlockReference))))
-               // continue;
+               / continue;
 
             BlockReference blkRef = tr.GetObject(objId, OpenMode.ForRead) as BlockReference;
             if (blkRef == null)
