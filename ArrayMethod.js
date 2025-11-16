@@ -17,7 +17,7 @@ var fe = arr.forEach(function(element,index)
  var arr =[1,2,3,4,5,5];
 var fe = arr.forEach(function(element,index)
 {
-/     console.log(element*2)
+     console.log(element*2)
 //})
 
 //const data =[
