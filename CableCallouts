@@ -78,7 +78,7 @@ public static void CheckCableCallouts()
                         if (heading.Contains("  ") || heading.Contains("\t"))
                         {
                             // Draw red circle on error layer around attribute position
-                           / )Circle circle = new Circle(attRef.Position, Vector3d.ZAxis, 10); // Circle radius 50 or adjust as needed
+                           // )Circle circle = new Circle(attRef.Position, Vector3d.ZAxis, 10); // Circle radius 50 or adjust as needed
                             circle.LayerId = errorLayerId;
                             circle.Color = Color.FromColorIndex(ColorMethod.ByAci, 1);
 
