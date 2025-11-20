@@ -20,7 +20,7 @@ var fe = arr.forEach(function(element,index)
      console.log(element*2)
 })
 
-//const data =[
+/const data =[
     {
         name:"Maggi",
         id:142
