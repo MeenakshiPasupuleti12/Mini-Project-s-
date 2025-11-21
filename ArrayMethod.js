@@ -32,7 +32,7 @@ const data =[
 
     {
         name:"soup",
-        id:12
+        /id:12
     },
     {
         name:"Maggi",
