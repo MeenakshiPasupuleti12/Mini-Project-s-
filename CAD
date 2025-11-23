@@ -5,7 +5,7 @@ public static void Spilters()
     Document doc = Application.DocumentManager.MdiActiveDocument;
     Database db = doc.Database;
     Editor ed = doc.Editor;
-    /int mismatchCount = 0;
+    int mismatchCount = 0;
 
     using (Transaction tr = db.TransactionManager.StartTransaction())
     {
