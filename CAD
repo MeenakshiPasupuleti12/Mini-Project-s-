@@ -46,7 +46,7 @@ public static void Spilters()
             // Match by block name or layer
             if (!blkRef.Name.ToUpper().Contains("SPLITTER") &&
                 !blkRef.Layer.ToUpper().Contains("SPLITTER"))
-                //continue;
+                /continue;
 
             // Read Flip States
             string flip1 = GetAttribute(blkRef, "Flip state1", tr);
