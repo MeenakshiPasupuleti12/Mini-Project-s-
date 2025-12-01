@@ -18,7 +18,7 @@ public static void Spilters()
 
         if (!lt.Has("SPLITTER_ERRORS"))
         {
-            lt.UpgradeOpen();
+             lt.UpgradeOpen();
             LayerTableRecord errorLayer = new LayerTableRecord
             {
                 Name = "SPLITTER_ERRORS",
