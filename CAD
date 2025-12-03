@@ -14,7 +14,7 @@ public static void Spilters()
 
         // Prepare error layer
         LayerTable lt = tr.GetObject(db.LayerTableId, OpenMode.ForRead) as LayerTable;
-       / ObjectId errorLayerId;
+       //ObjectId errorLayerId;
 
         if (!lt.Has("SPLITTER_ERRORS"))
         {
