@@ -1,0 +1,7 @@
+CREATE TABLE Users
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    FullName NVARCHAR(100),
+    Email NVARCHAR(100),
+    Password NVARCHAR(100)
+)
