@@ -1,0 +1,62 @@
+<%@ Page Language="C#" AutoEventWireup="true" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>User Registration</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <h2>User Registration</h2>
+
+        Full Name:<br />
+        <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+        <br /><br />
+
+        Email:<br />
+        <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+        <br /><br />
+
+        Password:<br />
+        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+        <br /><br />
+
+        <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click" />
+        <br /><br />
+
+        <asp:Label ID="lblMessage" runat="server" ForeColor="Green"></asp:Label>
+
+    </form>
+
+    <script runat="server">
+        protected void btnRegister_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text;
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
+
+            string conStr = "Data Source=YOUR_SERVER;Initial Catalog=YOUR_DB;Integrated Security=True";
+
+            using (System.Data.SqlClient.SqlConnection con =
+                new System.Data.SqlClient.SqlConnection(conStr))
+            {
+                string query = "INSERT INTO Users (FullName, Email, Password) VALUES (@Name, @Email, @Password)";
+                System.Data.SqlClient.SqlCommand cmd =
+                    new System.Data.SqlClient.SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
+            lblMessage.Text = "Registration Successful!";
+        }
+    </script>
+
+</body>
+</html>
