@@ -36,7 +36,7 @@ const data =[
     },
     {
         name:"Maggi",
-        /id:10
+        id:10
     },
 ]
 
