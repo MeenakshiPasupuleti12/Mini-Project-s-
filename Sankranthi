@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Sankranthi</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(to bottom, #ffcc33, #ff9933);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+        color: #4a1c00;
+    }
+
+    h1 {
+        font-size: 3em;
+        animation: glow 2s infinite alternate;
+    }
+
+    p {
+        font-size: 1.3em;
+        margin-top: 10px;
+    }
+
+    .kite {
+        width: 60px;
+        height: 60px;
+        background: red;
+        position: absolute;
+        top: 70%;
+        left: -80px;
+        transform: rotate(45deg);
+        animation: fly 6s linear infinite;
+    }
+
+    .kite::before,
+    .kite::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: red;
+    }
+
+    .kite::before {
+        top: -30px;
+        left: 0;
+    }
+
+    .kite::after {
+        left: -30px;
+        top: 0;
+    }
+
+    @keyframes fly {
+        0% { left: -100px; top: 70%; }
+        50% { top: 20%; }
+        100% { left: 110%; top: 40%; }
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #fff; }
+        to { text-shadow: 0 0 25px #ff3300; }
+    }
+
+    .sun {
+        width: 120px;
+        height: 120px;
+        background: #ff6600;
+        border-radius: 50%;
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        box-shadow: 0 0 40px #ff3300;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="sun"></div>
+
+<div class="kite"></div>
+
+<div class="container">
+    <h1>🌾 Happy Sankranthi 🌾</h1>
+    <p>May your life rise high like kites<br>
+       and glow with happiness & prosperity ✨</p>
+</div>
+
+<script>
+    // Small animation sparkle effect
+    setInterval(() => {
+        document.body.style.background =
+            `linear-gradient(to bottom, 
+            hsl(${Math.random()*60 + 20}, 100%, 60%), 
+            #ff9933)`;
+    }, 2000);
+</script>
+
+</body>
+</html>
