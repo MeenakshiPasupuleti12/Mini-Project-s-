@@ -27,7 +27,7 @@ const data =[
     },
     {
         name:"yipee",
-       id:14
+      / id:14
     },
 
     {
