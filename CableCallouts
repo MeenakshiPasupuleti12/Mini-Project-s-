@@ -1,4 +1,4 @@
-//using IntelliCAD.ApplicationServices;
+/using IntelliCAD.ApplicationServices;
 using IntelliCAD.EditorInput;
 using System;
 using System.Collections.Generic;
